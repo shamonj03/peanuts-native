@@ -1725,6 +1725,7 @@ The profile (SDK 10, NVN + Wwise, Bandai Namco nu/nv) and its generated shader t
 | File | Hunks | Change | Marker |
 |---|---|---|---|
 | `dm/games/0100F4300BF2C000/` (new) | whole profile | `game.tsv`, `README.md` and the generated tables | `PEANUTS` in `game.tsv` and the note; tables allow-listed |
+| `dm/games/0100AA001415E000/` (new: `game.tsv`, `README.md`, the shader tables) + its row in `dm/games/README.md` | whole profile | `game.tsv`, `README.md`, the generated tables and the games-table row | `PEANUTS` in `game.tsv`, the note and the row; tables allow-listed |
 | `dm/games/README.md` | 1 | the games-table row | inline `<!-- PEANUTS: Peanuts-only profile -->` |
 
 ### New Pokemon Snap v0
