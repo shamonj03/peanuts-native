@@ -1,26 +1,27 @@
 <!-- PEANUTS: new profile, provisional -->
 # Pokémon Mystery Dungeon: Rescue Team DX (`01003D200BAA2000`)
 
-Base game 1.0.0 (`v0`), SDK 7.4.0. **Unity 2018.3.12f1** (IL2CPP) with FMOD, rendering with **NVN**, 64-bit (the NPDM's byte 0xC is 0x17). Modules `main`, `subsdk0` and `sdk`. The closest profiles are the other Unity 2018 ones: [Raging Loop](../010020400E1C2000/README.md) (Unity 2018.3.10f1), [FINAL FANTASY CRYSTAL CHRONICLES Remastered Edition](../0100CE4010AAC000/README.md) (Unity 2018.4.2f1) and [Monster Sanctuary](../0100A0F00DA68000/README.md) (Unity 2018.4.23f1).
+Base game 1.0.0 (`v0`) and update 1.0.2 (`v131072`), SDK 7.4.0 in both. **Unity 2018.3.12f1** (IL2CPP) with FMOD, rendering with **NVN**, 64-bit (the NPDM's byte 0xC is 0x17). Modules `main`, `subsdk0` and `sdk`. The closest profiles are the other Unity 2018 ones: [Raging Loop](../010020400E1C2000/README.md) (Unity 2018.3.10f1), [FINAL FANTASY CRYSTAL CHRONICLES Remastered Edition](../0100CE4010AAC000/README.md) (Unity 2018.4.2f1) and [Monster Sanctuary](../0100A0F00DA68000/README.md) (Unity 2018.4.23f1).
 
 ## Status
 
-**Provisional.** The profile is the survey's: `scripts/build_ipa_from_nsp.py` with `dm/games/profile_guess.py` wrote `game.tsv` and `shader_split.py` wrote the shader tables beside it. Nothing in it was checked by hand. It runs on an AYN Thor (Snapdragon 8 Gen 2, Turnip 27.0.0-R2) to the game's language-select screen at 30 FPS on the starts that get there; see [Found on this game](#found-on-this-game) for the start hang that patches.py addresses. It is not in any list of supported games.
+**Provisional.** The profile is the survey's: `scripts/build_ipa_from_nsp.py` with `dm/games/profile_guess.py` wrote `game.tsv` and `shader_split.py` wrote the shader tables beside it. Nothing in it was checked by hand. On an AYN Thor (Snapdragon 8 Gen 2, Turnip 27.0.0-R2) 1.0.0 and 1.0.2 both start and play: on each we played the first dungeon and the base up to the entrance of Thunderwave Cave, fought enemies and saved the game. See [Found on this game](#found-on-this-game) for the start hang that patches.py addresses and [Open](#open) for what was not tested. It is not in any list of supported games.
 
 ## Builds
 
-| Module | Build ID |
-|---|---|
-| `main` | `ca19d0695861144b8a0fd0c438264a76` |
-| `subsdk0` | `baee264d3658fc6b6b581e5cbb662e3a` |
-| `sdk` | `e30d2170165e907aba457c79fd83383d` |
+| Module | 1.0.0 (`v0`) | 1.0.2 (`v131072`) |
+|---|---|---|
+| `main` | `ca19d0695861144b8a0fd0c438264a76` | `3ab632dee82d59448599b2291f30994a` |
+| `subsdk0` | `baee264d3658fc6b6b581e5cbb662e3a` | `baee264d3658fc6b6b581e5cbb662e3a` |
+| `sdk` | `e30d2170165e907aba457c79fd83383d` | `e30d2170165e907aba457c79fd83383d` |
 
-The display version is the base game's: 1.0.0, `v0`. Only the base game is packed: the profile's `build`, `package` and `shader_versions` rows all say `v0`. There is no update row and no DLC imported (see [Open](#open)).
+The display version of `v0` is 1.0.0 and of `v131072` 1.0.2. Only `main` differs between them. `package` says `v131072` and `shader_versions` lists `v0 v131072`. The profile has no DLC (see [Open](#open)).
 
 ## Shaders
 
 - `shader_split.py` found 9,817 programs: 16 compute, 5 geometry, 4,681 pixel, 5,115 vertex, and printed no `[RED]` line.
 - By source: 9,637 in `data` — 2,671 UnityFS bundles, 1.92 GB, under `Data/StreamingAssets/ab` (`shader_groups /Data/=data`) — and 180 in `main`, taken from 584 GLSLC output magics, of which 180 read whole.
+- Splitting 1.0.0 and 1.0.2 together (`shader_split.py` with both RomFS and `main` paths) gives the same 9,817 programs with the same keys as 1.0.0 alone, so the tables are 1.0.0's row for row. Split alone, 1.0.2 differs only in the `main#GLSLC@` offsets in the source column of the 180 programs in `main`.
 - `shader_pairs.tsv` has 44 variation pairs.
 - On Turnip a cold start reads the profile's tables and prepares 5,141 programs before the game starts
   (`shader parts: 5141 programs of the profile (5141 prepared)`); warm runs serve them from the driver's parts
@@ -68,5 +69,5 @@ The keys are the survey's, as generated; the heap check that would correct them 
 - On the launcher's system driver the game renders with missing texture content: the intro's Pelippers missing
   most of its textures, in-game foliage drawing solid green. The logs are silent (no `[RED]` lines, no skipped
   draws) and Turnip renders both correctly — a host Adreno-740 path issue, filed separately.
-- No build row for the update 1.0.2 (`v131072`, `main` build ID `3ab632dee82d59448599b2291f30994a`).
+- Update 1.0.2 has its own `main` build ID and 131 cuts: the same sites as 1.0.0, each 0x40 higher, found again by shape in its `main`. On Turnip we played it as far as the entrance of Thunderwave Cave, fought enemies and saved the game (logs `01003D200BAA2000-20261124-083926.log` and `-090219.log`: 29.9 fps median in both, no `watchdog` line, no crash).
 - The DLC (`01003D200BAA2800`) is not imported.
